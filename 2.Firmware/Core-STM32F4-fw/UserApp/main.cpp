@@ -67,7 +67,8 @@ void ThreadOledUpdate(void* argument)
 
     for (;;)
     {
-        mpu6050.Update(true);
+//        暂停MPU6050
+//        mpu6050.Update(true);
 
         oled.clearBuffer();
         oled.setFont(u8g2_font_5x8_tr);
@@ -136,14 +137,14 @@ void Main(void)
 
     // Init Robot.
     dummy.Init();
-
-    // Init IMU.
-    do
-    {
-        mpu6050.Init();
-        osDelay(100);
-    } while (!mpu6050.testConnection());
-    mpu6050.InitFilter(200, 100, 50);
+// 似乎MPU6050初始化有问题，暂时先不使用
+//    // Init IMU.
+//    do
+//    {
+//        mpu6050.Init();
+//        osDelay(100);
+//    } while (!mpu6050.testConnection());
+//    mpu6050.InitFilter(200, 100, 50);
 
     // Init OLED 128x80.
     oled.Init();
