@@ -2,6 +2,7 @@
 #include "configurations.h"
 
 extern Motor motor;
+extern EncoderCalibrator encoderCalibrator;
 
 void OnUartCmd(uint8_t* _data, uint16_t _len)
 {
@@ -52,6 +53,11 @@ void OnUartCmd(uint8_t* _data, uint16_t _len)
                     (int32_t) (pos * (float) motor.MOTOR_ONE_CIRCLE_SUBDIVIDE_STEPS));
             }
             break;
+        case 'C': {
+            printf("Calibrating...\r\n");
+            encoderCalibrator.isTriggered = true;
+            break;
+        }
     }
 }
 
