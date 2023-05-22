@@ -36,10 +36,10 @@ void Main()
         case 120384216912514: //J4
             defaultNodeID = 4;
             break;
-        case 120406483030658: //J5
+        case 120380560528002: //J5
             defaultNodeID = 5;
             break;
-        case 120380560528002: //J6
+        case 120406483030658: //J6
             defaultNodeID = 6;
             break;
         default:
@@ -70,6 +70,8 @@ void Main()
             .enableStallProtect=false
         };
         eeprom.put(0, boardConfig);
+        // And start the motor calibration
+        encoderCalibrator.isTriggered = true;
     }
     motor.config.motionParams.encoderHomeOffset = boardConfig.encoderHomeOffset;
     motor.config.motionParams.ratedCurrent = boardConfig.currentLimit;
