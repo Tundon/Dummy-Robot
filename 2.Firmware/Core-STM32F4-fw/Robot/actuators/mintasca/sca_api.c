@@ -60,7 +60,9 @@ void lookupActuators(CAN_Handler_t *canPort) {
   SCA_Handler_List[0] = temp;
 
   /* 输出提示信息 */
-  SCA_Debug("canPort %d polling done ! Found %d Actuators altogether!\r\n\r\n", canPort->CanPort, Found);
+  SCA_Debug("canPort %d polling done ! Found %d Actuators altogether!\r\n\r\n",
+            canPort->CanPort,
+            Found);
 }
 
 /**
@@ -211,7 +213,8 @@ uint8_t isEnable(uint8_t id, uint8_t isBlock) {
   }
 
   /* 阻塞式通信 */
-  while ((pSCA->paraCache.R_Power_State != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Power_State != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -364,7 +367,9 @@ uint8_t disableActuator(uint8_t id) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t activateActuatorMode(uint8_t id, uint8_t ActuatorMode, uint8_t isBlock) {
+uint8_t activateActuatorMode(uint8_t id,
+                             uint8_t ActuatorMode,
+                             uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -465,7 +470,8 @@ uint8_t getErrorCode(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Error_Code != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Error_Code != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -651,7 +657,8 @@ uint8_t getPosition(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行成功 */
-  while ((pSCA->paraCache.R_Position_Real != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Real != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanPowertime) return SCA_OperationFailed;
 
   return Error;
@@ -682,7 +689,8 @@ uint8_t getPositionFast(SCA_Handler_t *pSCA, uint8_t isBlock) {
   }
 
   /* 等待执行成功 */
-  while ((pSCA->paraCache.R_Position_Real != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Real != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanPowertime) return SCA_OperationFailed;
 
   return Error;
@@ -755,7 +763,8 @@ uint8_t getPositionKp(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Filter_P != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Filter_P != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -828,7 +837,8 @@ uint8_t getPositionKi(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Filter_I != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Filter_I != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -901,7 +911,8 @@ uint8_t getPositionUmax(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Filter_Limit_H != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Filter_Limit_H != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -974,7 +985,8 @@ uint8_t getPositionUmin(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Filter_Limit_L != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Filter_Limit_L != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1047,7 +1059,8 @@ uint8_t getPositionOffset(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Offset != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Offset != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1120,7 +1133,8 @@ uint8_t getMaximumPosition(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Limit_H != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Limit_H != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1193,7 +1207,8 @@ uint8_t getMinimumPosition(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Limit_L != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Limit_L != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1266,7 +1281,8 @@ uint8_t isPositionLimitEnable(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Limit_State != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Limit_State != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1376,7 +1392,8 @@ uint8_t isPositionFilterEnable(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Filter_State != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Filter_State != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1390,7 +1407,9 @@ uint8_t isPositionFilterEnable(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setPositionCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock) {
+uint8_t setPositionCutoffFrequency(uint8_t id,
+                                   float frequency,
+                                   uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -1413,7 +1432,8 @@ uint8_t setPositionCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock)
   }
 
   /* 等待执行结果 */
-  while ((pSCA->Position_Filter_Value != frequency) && (waitime++ < CanOvertime));
+  while ((pSCA->Position_Filter_Value != frequency)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1449,7 +1469,8 @@ uint8_t getPositionCutoffFrequency(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Position_Filter_Value != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Position_Filter_Value != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1485,7 +1506,8 @@ uint8_t clearHomingInfo(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.W_ClearHome != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.W_ClearHome != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1499,7 +1521,9 @@ uint8_t clearHomingInfo(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setProfilePositionAcceleration(uint8_t id, float acceleration, uint8_t isBlock) {
+uint8_t setProfilePositionAcceleration(uint8_t id,
+                                       float acceleration,
+                                       uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -1529,7 +1553,8 @@ uint8_t setProfilePositionAcceleration(uint8_t id, float acceleration, uint8_t i
   }
 
   /* 等待执行结果 */
-  while ((pSCA->PP_Max_Acceleration != acceleration) && (waitime++ < CanOvertime));
+  while ((pSCA->PP_Max_Acceleration != acceleration)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1565,7 +1590,8 @@ uint8_t getProfilePositionAcceleration(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_PP_Max_Acceleration != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_PP_Max_Acceleration != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1579,7 +1605,9 @@ uint8_t getProfilePositionAcceleration(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setProfilePositionDeceleration(uint8_t id, float deceleration, uint8_t isBlock) {
+uint8_t setProfilePositionDeceleration(uint8_t id,
+                                       float deceleration,
+                                       uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -1604,7 +1632,8 @@ uint8_t setProfilePositionDeceleration(uint8_t id, float deceleration, uint8_t i
   }
 
   /* 等待执行结果 */
-  while ((pSCA->PP_Max_Deceleration != deceleration) && (waitime++ < CanOvertime));
+  while ((pSCA->PP_Max_Deceleration != deceleration)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1640,7 +1669,8 @@ uint8_t getProfilePositionDeceleration(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_PP_Max_Deceleration != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_PP_Max_Deceleration != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1654,7 +1684,9 @@ uint8_t getProfilePositionDeceleration(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setProfilePositionMaxVelocity(uint8_t id, float maxVelocity, uint8_t isBlock) {
+uint8_t setProfilePositionMaxVelocity(uint8_t id,
+                                      float maxVelocity,
+                                      uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -1715,7 +1747,8 @@ uint8_t getProfilePositionMaxVelocity(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_PP_Max_Velocity != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_PP_Max_Velocity != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1782,7 +1815,8 @@ uint8_t getVelocity(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Real != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Real != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1813,7 +1847,8 @@ uint8_t getVelocityFast(SCA_Handler_t *pSCA, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Real != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Real != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1849,7 +1884,8 @@ uint8_t getVelocityKp(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Filter_P != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Filter_P != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1922,7 +1958,8 @@ uint8_t getVelocityKi(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Filter_I != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Filter_I != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -1995,7 +2032,8 @@ uint8_t getVelocityUmax(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Filter_Limit_H != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Filter_Limit_H != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2068,7 +2106,8 @@ uint8_t getVelocityUmin(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Filter_Limit_L != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Filter_Limit_L != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2187,7 +2226,8 @@ uint8_t isVelocityFilterEnable(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Filter_State != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Filter_State != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2223,7 +2263,8 @@ uint8_t getVelocityCutoffFrequency(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Filter_Value != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Filter_Value != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2237,7 +2278,9 @@ uint8_t getVelocityCutoffFrequency(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setVelocityCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock) {
+uint8_t setVelocityCutoffFrequency(uint8_t id,
+                                   float frequency,
+                                   uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -2260,7 +2303,8 @@ uint8_t setVelocityCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock)
   }
 
   /* 等待执行结果 */
-  while ((pSCA->Velocity_Filter_Value != frequency) && (waitime++ < CanOvertime));
+  while ((pSCA->Velocity_Filter_Value != frequency)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2333,7 +2377,8 @@ uint8_t getVelocityLimit(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Velocity_Limit != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Velocity_Limit != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2347,7 +2392,9 @@ uint8_t getVelocityLimit(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setProfileVelocityAcceleration(uint8_t id, float acceleration, uint8_t isBlock) {
+uint8_t setProfileVelocityAcceleration(uint8_t id,
+                                       float acceleration,
+                                       uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -2372,7 +2419,8 @@ uint8_t setProfileVelocityAcceleration(uint8_t id, float acceleration, uint8_t i
   }
 
   /* 等待执行结果 */
-  while ((pSCA->PV_Max_Acceleration != acceleration) && (waitime++ < CanOvertime));
+  while ((pSCA->PV_Max_Acceleration != acceleration)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2408,7 +2456,8 @@ uint8_t getProfileVelocityAcceleration(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_PV_Max_Acceleration != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_PV_Max_Acceleration != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2422,7 +2471,9 @@ uint8_t getProfileVelocityAcceleration(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setProfileVelocityDeceleration(uint8_t id, float deceleration, uint8_t isBlock) {
+uint8_t setProfileVelocityDeceleration(uint8_t id,
+                                       float deceleration,
+                                       uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -2447,7 +2498,8 @@ uint8_t setProfileVelocityDeceleration(uint8_t id, float deceleration, uint8_t i
   }
 
   /* 等待执行结果 */
-  while ((pSCA->PV_Max_Deceleration != deceleration) && (waitime++ < CanOvertime));
+  while ((pSCA->PV_Max_Deceleration != deceleration)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2483,7 +2535,8 @@ uint8_t getProfileVelocityDeceleration(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_PV_Max_Deceleration != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_PV_Max_Deceleration != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2497,7 +2550,9 @@ uint8_t getProfileVelocityDeceleration(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setProfileVelocityMaxVelocity(uint8_t id, float maxVelocity, uint8_t isBlock) {
+uint8_t setProfileVelocityMaxVelocity(uint8_t id,
+                                      float maxVelocity,
+                                      uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -2558,7 +2613,8 @@ uint8_t getProfileVelocityMaxVelocity(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_PV_Max_Velocity != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_PV_Max_Velocity != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2625,7 +2681,8 @@ uint8_t getCurrent(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Real != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Real != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2656,7 +2713,8 @@ uint8_t getCurrentFast(SCA_Handler_t *pSCA, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Real != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Real != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2692,7 +2750,8 @@ uint8_t getCurrentKp(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Filter_P != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Filter_P != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2728,7 +2787,8 @@ uint8_t getCurrentKi(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Filter_I != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Filter_I != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2765,7 +2825,8 @@ uint8_t getCurrentRange(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Max != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Max != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2839,7 +2900,8 @@ uint8_t isCurrentFilterEnable(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Filter_State != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Filter_State != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2876,7 +2938,8 @@ uint8_t getCurrentCutoffFrequency(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Filter_Value != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Filter_Value != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2891,7 +2954,9 @@ uint8_t getCurrentCutoffFrequency(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setCurrentCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock) {
+uint8_t setCurrentCutoffFrequency(uint8_t id,
+                                  float frequency,
+                                  uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -2914,7 +2979,8 @@ uint8_t setCurrentCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock) 
   }
 
   /* 等待执行结果 */
-  while ((pSCA->Current_Filter_Value != frequency) && (waitime++ < CanOvertime));
+  while ((pSCA->Current_Filter_Value != frequency)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -2987,7 +3053,8 @@ uint8_t getCurrentLimit(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Current_Limit != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Current_Limit != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3026,7 +3093,8 @@ uint8_t getVoltage(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Voltage != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Voltage != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3062,7 +3130,8 @@ uint8_t getLockEnergy(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Blocked_Energy != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Blocked_Energy != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3136,7 +3205,8 @@ uint8_t getMotorTemperature(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Motor_Temp != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Motor_Temp != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3173,7 +3243,8 @@ uint8_t getInverterTemperature(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Inverter_Temp != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Inverter_Temp != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3210,7 +3281,8 @@ uint8_t getMotorProtectedTemperature(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Inverter_Protect_Temp != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Inverter_Protect_Temp != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3284,7 +3356,8 @@ uint8_t getMotorRecoveryTemperature(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Motor_Recover_Temp != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Motor_Recover_Temp != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3357,7 +3430,8 @@ uint8_t getInverterProtectedTemperature(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Inverter_Protect_Temp != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Inverter_Protect_Temp != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3372,7 +3446,9 @@ uint8_t getInverterProtectedTemperature(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setInverterProtectedTemperature(uint8_t id, float temp, uint8_t isBlock) {
+uint8_t setInverterProtectedTemperature(uint8_t id,
+                                        float temp,
+                                        uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -3431,7 +3507,8 @@ uint8_t getInverterRecoveryTemperature(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Inverter_Recover_Temp != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Inverter_Recover_Temp != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3446,7 +3523,9 @@ uint8_t getInverterRecoveryTemperature(uint8_t id, uint8_t isBlock) {
   * @返	回	SCA_NoError：操作成功
   *			其他通信错误参见 SCA_Error 错误列表
   */
-uint8_t setInverterRecoveryTemperature(uint8_t id, float temp, uint8_t isBlock) {
+uint8_t setInverterRecoveryTemperature(uint8_t id,
+                                       float temp,
+                                       uint8_t isBlock) {
   uint8_t Error;
   uint32_t waitime = 0;
   SCA_Handler_t *pSCA = NULL;
@@ -3546,7 +3625,8 @@ uint8_t getActuatorSerialNumber(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Serial_Num != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Serial_Num != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;
@@ -3583,7 +3663,8 @@ uint8_t getActuatorLastState(uint8_t id, uint8_t isBlock) {
   }
 
   /* 等待执行结果 */
-  while ((pSCA->paraCache.R_Last_State != Actr_Enable) && (waitime++ < CanOvertime));
+  while ((pSCA->paraCache.R_Last_State != Actr_Enable)
+      && (waitime++ < CanOvertime));
   if (waitime >= CanOvertime) return SCA_OperationFailed;
 
   return Error;

@@ -150,7 +150,10 @@ class SCA {
         make_protocol_function("get_position", *this, &SCA::GetPosition),
         make_protocol_function("set_velocity", *this, &SCA::SetVelocity, "vel"),
         make_protocol_function("get_velocity", *this, &SCA::GetVelocity),
-        make_protocol_function("set_current", *this, &SCA::SetCurrent, "current"),
+        make_protocol_function("set_current",
+                               *this,
+                               &SCA::SetCurrent,
+                               "current"),
         make_protocol_function("get_current", *this, &SCA::GetCurrent)
     );
   }

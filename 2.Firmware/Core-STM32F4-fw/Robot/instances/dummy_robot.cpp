@@ -24,7 +24,8 @@ DummyRobot::DummyRobot(CAN_HandleTypeDef *_hcan) :
   motorJ[6] = new CtrlStepMotor(_hcan, 6, true, 50, -720, 720);
   hand = new DummyHand(_hcan, 7);
 
-  dof6Solver = new DOF6Kinematic(0.109f, 0.035f, 0.146f, 0.115f, 0.052f, 0.072f);
+  dof6Solver =
+      new DOF6Kinematic(0.109f, 0.035f, 0.146f, 0.115f, 0.052f, 0.072f);
 }
 
 DummyRobot::~DummyRobot() {
@@ -53,13 +54,23 @@ void DummyRobot::MoveJoints(DOF6Kinematic::Joint6D_t _joints) {
   }
 }
 
-void DummyRobot::MoveJointsTo(float j1, float j2, float j3, float j4, float j5, float j6) {
+void DummyRobot::MoveJointsTo(float j1,
+                              float j2,
+                              float j3,
+                              float j4,
+                              float j5,
+                              float j6) {
   if (this->MoveJ(j1, j2, j3, j4, j5, j6)) {
     this->MoveJoints(this->targetJoints);
   }
 }
 
-bool DummyRobot::MoveJ(float _j1, float _j2, float _j3, float _j4, float _j5, float _j6) {
+bool DummyRobot::MoveJ(float _j1,
+                       float _j2,
+                       float _j3,
+                       float _j4,
+                       float _j5,
+                       float _j6) {
   DOF6Kinematic::Joint6D_t targetJointsTmp(_j1, _j2, _j3, _j4, _j5, _j6);
   bool valid = true;
 
@@ -76,7 +87,8 @@ bool DummyRobot::MoveJ(float _j1, float _j2, float _j3, float _j4, float _j5, fl
     float time = maxAngle * (float) (motorJ[index + 1]->reduction) / jointSpeed;
     for (int j = 1; j <= 6; j++) {
       dynamicJointSpeeds.a[j - 1] =
-          abs(deltaJoints.a[j - 1] * (float) (motorJ[j]->reduction) / time * 0.1f); //0~10r/s
+          abs(deltaJoints.a[j - 1] * (float) (motorJ[j]->reduction) / time
+                  * 0.1f); //0~10r/s
     }
 
     jointsStateFlag = 0;
@@ -88,7 +100,12 @@ bool DummyRobot::MoveJ(float _j1, float _j2, float _j3, float _j4, float _j5, fl
   return false;
 }
 
-bool DummyRobot::MoveL(float _x, float _y, float _z, float _a, float _b, float _c) {
+bool DummyRobot::MoveL(float _x,
+                       float _y,
+                       float _z,
+                       float _a,
+                       float _b,
+                       float _c) {
   DOF6Kinematic::Pose6D_t pose6D(_x, _y, _z, _a, _b, _c);
   DOF6Kinematic::IKSolves_t ikSolves{};
   DOF6Kinematic::Joint6D_t lastJoint6D{};
@@ -128,9 +145,12 @@ bool DummyRobot::MoveL(float _x, float _y, float _z, float _a, float _b, float _
       }
     }
 
-    return MoveJ(ikSolves.config[indexConfig].a[0], ikSolves.config[indexConfig].a[1],
-                 ikSolves.config[indexConfig].a[2], ikSolves.config[indexConfig].a[3],
-                 ikSolves.config[indexConfig].a[4], ikSolves.config[indexConfig].a[5]);
+    return MoveJ(ikSolves.config[indexConfig].a[0],
+                 ikSolves.config[indexConfig].a[1],
+                 ikSolves.config[indexConfig].a[2],
+                 ikSolves.config[indexConfig].a[3],
+                 ikSolves.config[indexConfig].a[4],
+                 ikSolves.config[indexConfig].a[5]);
   }
 
   return false;
@@ -163,7 +183,8 @@ void DummyRobot::SetJointAcceleration(float _acc) {
   else if (_acc > 100) _acc = 100;
 
   for (int i = 1; i <= 6; i++)
-    motorJ[i]->SetAcceleration(_acc / 100 * DEFAULT_JOINT_ACCELERATION_BASES.a[i - 1]);
+    motorJ[i]->SetAcceleration(
+        _acc / 100 * DEFAULT_JOINT_ACCELERATION_BASES.a[i - 1]);
 }
 
 void DummyRobot::CalibrateHomeOffset() {
@@ -254,7 +275,8 @@ void DummyRobot::SetCommandMode(uint32_t _mode) {
     case COMMAND_TARGET_POINT_INTERRUPTABLE:jointSpeedRatio = 1;
       SetJointAcceleration(DEFAULT_JOINT_ACCELERATION_LOW);
       break;
-    case COMMAND_CONTINUES_TRAJECTORY:SetJointAcceleration(DEFAULT_JOINT_ACCELERATION_HIGH);
+    case COMMAND_CONTINUES_TRAJECTORY:
+      SetJointAcceleration(DEFAULT_JOINT_ACCELERATION_HIGH);
       jointSpeedRatio = 0.3;
       break;
     case COMMAND_MOTOR_TUNING:break;
@@ -321,15 +343,20 @@ uint32_t DummyRobot::CommandHandler::Push(const std::string &_cmd) {
 }
 
 void DummyRobot::CommandHandler::EmergencyStop() {
-  context->MoveJ(context->currentJoints.a[0], context->currentJoints.a[1], context->currentJoints.a[2],
-                 context->currentJoints.a[3], context->currentJoints.a[4], context->currentJoints.a[5]);
+  context->MoveJ(context->currentJoints.a[0],
+                 context->currentJoints.a[1],
+                 context->currentJoints.a[2],
+                 context->currentJoints.a[3],
+                 context->currentJoints.a[4],
+                 context->currentJoints.a[5]);
   context->MoveJoints(context->targetJoints);
   context->isEnabled = false;
   ClearFifo();
 }
 
 std::string DummyRobot::CommandHandler::Pop(uint32_t timeout) {
-  osStatus_t status = osMessageQueueGet(commandFifo, strBuffer, nullptr, timeout);
+  osStatus_t
+      status = osMessageQueueGet(commandFifo, strBuffer, nullptr, timeout);
 
   return std::string{strBuffer};
 }
@@ -348,8 +375,15 @@ uint32_t DummyRobot::CommandHandler::ParseCommand(const std::string &_cmd) {
         float joints[6];
         float speed;
 
-        argNum = sscanf(_cmd.c_str(), ">%f,%f,%f,%f,%f,%f,%f", joints, joints + 1, joints + 2,
-                        joints + 3, joints + 4, joints + 5, &speed);
+        argNum = sscanf(_cmd.c_str(),
+                        ">%f,%f,%f,%f,%f,%f,%f",
+                        joints,
+                        joints + 1,
+                        joints + 2,
+                        joints + 3,
+                        joints + 4,
+                        joints + 5,
+                        &speed);
         if (argNum == 6) {
           context->MoveJ(joints[0], joints[1], joints[2],
                          joints[3], joints[4], joints[5]);
@@ -369,8 +403,15 @@ uint32_t DummyRobot::CommandHandler::ParseCommand(const std::string &_cmd) {
         float pose[6];
         float speed;
 
-        argNum = sscanf(_cmd.c_str(), "@%f,%f,%f,%f,%f,%f,%f", pose, pose + 1, pose + 2,
-                        pose + 3, pose + 4, pose + 5, &speed);
+        argNum = sscanf(_cmd.c_str(),
+                        "@%f,%f,%f,%f,%f,%f,%f",
+                        pose,
+                        pose + 1,
+                        pose + 2,
+                        pose + 3,
+                        pose + 4,
+                        pose + 5,
+                        &speed);
         if (argNum == 6) {
           context->MoveL(pose[0], pose[1], pose[2], pose[3], pose[4], pose[5]);
         } else if (argNum == 7) {
@@ -393,8 +434,15 @@ uint32_t DummyRobot::CommandHandler::ParseCommand(const std::string &_cmd) {
         float joints[6];
         float speed;
 
-        argNum = sscanf(_cmd.c_str(), ">%f,%f,%f,%f,%f,%f,%f", joints, joints + 1, joints + 2,
-                        joints + 3, joints + 4, joints + 5, &speed);
+        argNum = sscanf(_cmd.c_str(),
+                        ">%f,%f,%f,%f,%f,%f,%f",
+                        joints,
+                        joints + 1,
+                        joints + 2,
+                        joints + 3,
+                        joints + 4,
+                        joints + 5,
+                        &speed);
         if (argNum == 6) {
           context->MoveJ(joints[0], joints[1], joints[2],
                          joints[3], joints[4], joints[5]);
@@ -409,8 +457,15 @@ uint32_t DummyRobot::CommandHandler::ParseCommand(const std::string &_cmd) {
         float pose[6];
         float speed;
 
-        argNum = sscanf(_cmd.c_str(), "@%f,%f,%f,%f,%f,%f,%f", pose, pose + 1, pose + 2,
-                        pose + 3, pose + 4, pose + 5, &speed);
+        argNum = sscanf(_cmd.c_str(),
+                        "@%f,%f,%f,%f,%f,%f,%f",
+                        pose,
+                        pose + 1,
+                        pose + 2,
+                        pose + 3,
+                        pose + 4,
+                        pose + 5,
+                        &speed);
         if (argNum == 6) {
           context->MoveL(pose[0], pose[1], pose[2], pose[3], pose[4], pose[5]);
         } else if (argNum == 7) {

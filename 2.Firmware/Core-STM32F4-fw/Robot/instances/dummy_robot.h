@@ -32,9 +32,18 @@ class DummyHand {
   // Communication protocol definitions
   auto MakeProtocolDefinitions() {
     return make_protocol_member_list(
-        make_protocol_function("set_angle", *this, &DummyHand::SetAngle, "angle"),
-        make_protocol_function("set_enable", *this, &DummyHand::SetEnable, "enable"),
-        make_protocol_function("set_current_limit", *this, &DummyHand::SetMaxCurrent, "current")
+        make_protocol_function("set_angle",
+                               *this,
+                               &DummyHand::SetAngle,
+                               "angle"),
+        make_protocol_function("set_enable",
+                               *this,
+                               &DummyHand::SetEnable,
+                               "enable"),
+        make_protocol_function("set_current_limit",
+                               *this,
+                               &DummyHand::SetMaxCurrent,
+                               "current")
     );
   }
 
@@ -89,7 +98,8 @@ class DummyRobot {
   // This is the pose when power on.
   const DOF6Kinematic::Joint6D_t REST_POSE = {0, -73, 180, 0, 0, 0};
   const float DEFAULT_JOINT_SPEED = 30;  // degree/s
-  const DOF6Kinematic::Joint6D_t DEFAULT_JOINT_ACCELERATION_BASES = {150, 100, 200, 200, 200, 200};
+  const DOF6Kinematic::Joint6D_t
+      DEFAULT_JOINT_ACCELERATION_BASES = {150, 100, 200, 200, 200, 200};
   const float DEFAULT_JOINT_ACCELERATION_LOW = 30;    // 0~100
   const float DEFAULT_JOINT_ACCELERATION_HIGH = 100;  // 0~100
   const CommandMode DEFAULT_COMMAND_MODE = COMMAND_TARGET_POINT_INTERRUPTABLE;
@@ -130,7 +140,9 @@ class DummyRobot {
   // Communication protocol definitions
   auto MakeProtocolDefinitions() {
     return make_protocol_member_list(
-        make_protocol_function("calibrate_home_offset", *this, &DummyRobot::CalibrateHomeOffset),
+        make_protocol_function("calibrate_home_offset",
+                               *this,
+                               &DummyRobot::CalibrateHomeOffset),
         make_protocol_function("homing", *this, &DummyRobot::Homing),
         make_protocol_function("resting", *this, &DummyRobot::Resting),
         make_protocol_ro_property("position_x", &this->currentPose6D.X),
@@ -145,15 +157,44 @@ class DummyRobot {
         make_protocol_object("joint_4", motorJ[4]->MakeProtocolDefinitions()),
         make_protocol_object("joint_5", motorJ[5]->MakeProtocolDefinitions()),
         make_protocol_object("joint_6", motorJ[6]->MakeProtocolDefinitions()),
-        make_protocol_object("joint_all", motorJ[ALL]->MakeProtocolDefinitions()),
+        make_protocol_object("joint_all",
+                             motorJ[ALL]->MakeProtocolDefinitions()),
         make_protocol_object("hand", hand->MakeProtocolDefinitions()),
         make_protocol_function("reboot", *this, &DummyRobot::Reboot),
-        make_protocol_function("set_enable", *this, &DummyRobot::SetEnable, "enable"),
-        make_protocol_function("move_joints_to", *this, &DummyRobot::MoveJointsTo, "j1", "j2", "j3", "j4", "j5", "j6"),
-        make_protocol_function("move_l", *this, &DummyRobot::MoveL, "x", "y", "z", "a", "b", "c"),
-        make_protocol_function("set_joint_speed", *this, &DummyRobot::SetJointSpeed, "speed"),
-        make_protocol_function("set_joint_acc", *this, &DummyRobot::SetJointAcceleration, "acc"),
-        make_protocol_function("set_command_mode", *this, &DummyRobot::SetCommandMode, "mode"),
+        make_protocol_function("set_enable",
+                               *this,
+                               &DummyRobot::SetEnable,
+                               "enable"),
+        make_protocol_function("move_joints_to",
+                               *this,
+                               &DummyRobot::MoveJointsTo,
+                               "j1",
+                               "j2",
+                               "j3",
+                               "j4",
+                               "j5",
+                               "j6"),
+        make_protocol_function("move_l",
+                               *this,
+                               &DummyRobot::MoveL,
+                               "x",
+                               "y",
+                               "z",
+                               "a",
+                               "b",
+                               "c"),
+        make_protocol_function("set_joint_speed",
+                               *this,
+                               &DummyRobot::SetJointSpeed,
+                               "speed"),
+        make_protocol_function("set_joint_acc",
+                               *this,
+                               &DummyRobot::SetJointAcceleration,
+                               "acc"),
+        make_protocol_function("set_command_mode",
+                               *this,
+                               &DummyRobot::SetCommandMode,
+                               "mode"),
         make_protocol_object("tuning", tuningHelper.MakeProtocolDefinitions()),
         make_protocol_function("is_moving", *this, &DummyRobot::IsMoving)
     );

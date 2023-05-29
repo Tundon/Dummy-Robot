@@ -42,7 +42,8 @@ class DOF6Kinematic {
 
     float a[6];
 
-    friend Joint6D_t operator-(const Joint6D_t &_joints1, const Joint6D_t &_joints2);
+    friend Joint6D_t operator-(const Joint6D_t &_joints1,
+                               const Joint6D_t &_joints2);
   };
 
   struct Pose6D_t {
@@ -66,11 +67,18 @@ class DOF6Kinematic {
     char solFlag[8][3];
   };
 
-  DOF6Kinematic(float L_BS, float D_BS, float L_AM, float L_FA, float D_EW, float L_WT);
+  DOF6Kinematic(float L_BS,
+                float D_BS,
+                float L_AM,
+                float L_FA,
+                float D_EW,
+                float L_WT);
 
   bool SolveFK(const Joint6D_t &_inputJoint6D, Pose6D_t &_outputPose6D);
 
-  bool SolveIK(const Pose6D_t &_inputPose6D, const Joint6D_t &_lastJoint6D, IKSolves_t &_outputSolves);
+  bool SolveIK(const Pose6D_t &_inputPose6D,
+               const Joint6D_t &_lastJoint6D,
+               IKSolves_t &_outputSolves);
 };
 
 #endif //DOF6_KINEMATIC_SOLVER_H

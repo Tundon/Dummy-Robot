@@ -121,14 +121,22 @@ uint8_t isPositionLimitEnable(uint8_t id, uint8_t isBlock);
 uint8_t setHomingPosition(uint8_t id, float homingPos, uint8_t isBlock);
 uint8_t enablePositionFilter(uint8_t id, uint8_t enable, uint8_t isBlock);
 uint8_t isPositionFilterEnable(uint8_t id, uint8_t isBlock);
-uint8_t setPositionCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock);
+uint8_t setPositionCutoffFrequency(uint8_t id,
+                                   float frequency,
+                                   uint8_t isBlock);
 uint8_t getPositionCutoffFrequency(uint8_t id, uint8_t isBlock);
 uint8_t clearHomingInfo(uint8_t id, uint8_t isBlock);
-uint8_t setProfilePositionAcceleration(uint8_t id, float acceleration, uint8_t isBlock);
+uint8_t setProfilePositionAcceleration(uint8_t id,
+                                       float acceleration,
+                                       uint8_t isBlock);
 uint8_t getProfilePositionAcceleration(uint8_t id, uint8_t isBlock);
-uint8_t setProfilePositionDeceleration(uint8_t id, float deceleration, uint8_t isBlock);
+uint8_t setProfilePositionDeceleration(uint8_t id,
+                                       float deceleration,
+                                       uint8_t isBlock);
 uint8_t getProfilePositionDeceleration(uint8_t id, uint8_t isBlock);
-uint8_t setProfilePositionMaxVelocity(uint8_t id, float maxVelocity, uint8_t isBlock);
+uint8_t setProfilePositionMaxVelocity(uint8_t id,
+                                      float maxVelocity,
+                                      uint8_t isBlock);
 uint8_t getProfilePositionMaxVelocity(uint8_t id, uint8_t isBlock);
 
 /***************速度相关******************/
@@ -147,14 +155,22 @@ uint8_t setVelocityUmin(uint8_t id, float min, uint8_t isBlock);
 uint8_t enableVelocityFilter(uint8_t id, uint8_t enable, uint8_t isBlock);
 uint8_t isVelocityFilterEnable(uint8_t id, uint8_t isBlock);
 uint8_t getVelocityCutoffFrequency(uint8_t id, uint8_t isBlock);
-uint8_t setVelocityCutoffFrequency(uint8_t id, float frequency, uint8_t isBlock);
+uint8_t setVelocityCutoffFrequency(uint8_t id,
+                                   float frequency,
+                                   uint8_t isBlock);
 uint8_t setVelocityLimit(uint8_t id, float limit, uint8_t isBlock);
 uint8_t getVelocityLimit(uint8_t id, uint8_t isBlock);
-uint8_t setProfileVelocityAcceleration(uint8_t id, float acceleration, uint8_t isBlock);
+uint8_t setProfileVelocityAcceleration(uint8_t id,
+                                       float acceleration,
+                                       uint8_t isBlock);
 uint8_t getProfileVelocityAcceleration(uint8_t id, uint8_t isBlock);
-uint8_t setProfileVelocityDeceleration(uint8_t id, float deceleration, uint8_t isBlock);
+uint8_t setProfileVelocityDeceleration(uint8_t id,
+                                       float deceleration,
+                                       uint8_t isBlock);
 uint8_t getProfileVelocityDeceleration(uint8_t id, uint8_t isBlock);
-uint8_t setProfileVelocityMaxVelocity(uint8_t id, float maxVelocity, uint8_t isBlock);
+uint8_t setProfileVelocityMaxVelocity(uint8_t id,
+                                      float maxVelocity,
+                                      uint8_t isBlock);
 uint8_t getProfileVelocityMaxVelocity(uint8_t id, uint8_t isBlock);
 float getVelocityRange(uint8_t id);
 
@@ -185,7 +201,9 @@ uint8_t setMotorProtectedTemperature(uint8_t id, float temp, uint8_t isBlock);
 uint8_t getMotorRecoveryTemperature(uint8_t id, uint8_t isBlock);
 uint8_t setMotorRecoveryTemperature(uint8_t id, float temp, uint8_t isBlock);
 uint8_t getInverterProtectedTemperature(uint8_t id, uint8_t isBlock);
-uint8_t setInverterProtectedTemperature(uint8_t id, float temp, uint8_t isBlock);
+uint8_t setInverterProtectedTemperature(uint8_t id,
+                                        float temp,
+                                        uint8_t isBlock);
 uint8_t getInverterRecoveryTemperature(uint8_t id, uint8_t isBlock);
 uint8_t setInverterRecoveryTemperature(uint8_t id, float temp, uint8_t isBlock);
 uint8_t setActuatorID(uint8_t currentID, uint8_t newID, uint8_t isBlock);

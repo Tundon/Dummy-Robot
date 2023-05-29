@@ -164,7 +164,9 @@ static uint8_t canTransmit(SCA_Handler_t *pSCA, uint8_t *TxBuf, uint8_t TxLen) {
   uint32_t waitime = 0;
 
   /* 调用CAN1发送指定的数据，若发送失败则进行重发，最多重发Retry次 */
-  while (pSCA->Can->Send(pSCA->ID, TxBuf, TxLen) && (waitime < pSCA->Can->Retry)) waitime++;
+  while (pSCA->Can->Send(pSCA->ID, TxBuf, TxLen)
+      && (waitime < pSCA->Can->Retry))
+    waitime++;
 
   /* 发送次数超出设定值，返回发送失败 */
   if (waitime >= pSCA->Can->Retry)
@@ -312,7 +314,8 @@ static void R3dataProcess(SCA_Handler_t *pSCA, CanRxMsg *RxMsg) {
   if ((RxMsg->Data[0] == R3_Velocity) || (RxMsg->Data[0] == R3_VelocityLimit))
     RxData = (float) temp / IQ24 * Velocity_Max;
 
-  else if ((RxMsg->Data[0] == R3_Current) || (RxMsg->Data[0] == R3_CurrentLimit))
+  else if ((RxMsg->Data[0] == R3_Current)
+      || (RxMsg->Data[0] == R3_CurrentLimit))
     RxData = (float) temp / IQ24 * pSCA->Current_Max;
 
   else if (RxMsg->Data[0] == R3_BlockEngy)
@@ -508,40 +511,51 @@ static void WriteDataProcess(SCA_Handler_t *pSCA, CanRxMsg *RxMsg) {
       case W1_Mode:pSCA->Mode = pSCA->paraCache.Mode;
         break;
 
-      case W1_CurrentFilterState:pSCA->Current_Filter_State = pSCA->paraCache.Current_Filter_State;
+      case W1_CurrentFilterState:
+        pSCA->Current_Filter_State = pSCA->paraCache.Current_Filter_State;
         break;
 
-      case W1_VelocityFilterState:pSCA->Velocity_Filter_State = pSCA->paraCache.Velocity_Filter_State;
+      case W1_VelocityFilterState:
+        pSCA->Velocity_Filter_State = pSCA->paraCache.Velocity_Filter_State;
         break;
 
-      case W1_PositionFilterState:pSCA->Position_Filter_State = pSCA->paraCache.Position_Filter_State;
+      case W1_PositionFilterState:
+        pSCA->Position_Filter_State = pSCA->paraCache.Position_Filter_State;
         break;
 
-      case W1_PositionLimitState:pSCA->Position_Limit_State = pSCA->paraCache.Position_Limit_State;
+      case W1_PositionLimitState:
+        pSCA->Position_Limit_State = pSCA->paraCache.Position_Limit_State;
         break;
 
       case W1_PowerState:pSCA->Power_State = pSCA->paraCache.Power_State;
         break;
 
-      case W2_CurrentFilterValue:pSCA->Current_Filter_Value = pSCA->paraCache.Current_Filter_Value;
+      case W2_CurrentFilterValue:
+        pSCA->Current_Filter_Value = pSCA->paraCache.Current_Filter_Value;
         break;
 
-      case W2_VelocityFilterValue:pSCA->Velocity_Filter_Value = pSCA->paraCache.Velocity_Filter_Value;
+      case W2_VelocityFilterValue:
+        pSCA->Velocity_Filter_Value = pSCA->paraCache.Velocity_Filter_Value;
         break;
 
-      case W2_PositionFilterValue:pSCA->Position_Filter_Value = pSCA->paraCache.Position_Filter_Value;
+      case W2_PositionFilterValue:
+        pSCA->Position_Filter_Value = pSCA->paraCache.Position_Filter_Value;
         break;
 
-      case W2_InverterProtectTemp:pSCA->Inverter_Protect_Temp = pSCA->paraCache.Inverter_Protect_Temp;
+      case W2_InverterProtectTemp:
+        pSCA->Inverter_Protect_Temp = pSCA->paraCache.Inverter_Protect_Temp;
         break;
 
-      case W2_InverterRecoverTemp:pSCA->Inverter_Recover_Temp = pSCA->paraCache.Inverter_Recover_Temp;
+      case W2_InverterRecoverTemp:
+        pSCA->Inverter_Recover_Temp = pSCA->paraCache.Inverter_Recover_Temp;
         break;
 
-      case W2_MotorProtectTemp:pSCA->Motor_Protect_Temp = pSCA->paraCache.Motor_Protect_Temp;
+      case W2_MotorProtectTemp:
+        pSCA->Motor_Protect_Temp = pSCA->paraCache.Motor_Protect_Temp;
         break;
 
-      case W2_MotorRecoverTemp:pSCA->Motor_Recover_Temp = pSCA->paraCache.Motor_Recover_Temp;
+      case W2_MotorRecoverTemp:
+        pSCA->Motor_Recover_Temp = pSCA->paraCache.Motor_Recover_Temp;
         break;
 
       case W3_Current:pSCA->Current_Real = pSCA->paraCache.Current_Real;
@@ -553,82 +567,104 @@ static void WriteDataProcess(SCA_Handler_t *pSCA, CanRxMsg *RxMsg) {
       case W3_Position:pSCA->Position_Real = pSCA->paraCache.Position_Real;
         break;
 
-      case W3_CurrentFilterP:pSCA->Current_Filter_P = pSCA->paraCache.Current_Filter_P;
+      case W3_CurrentFilterP:
+        pSCA->Current_Filter_P = pSCA->paraCache.Current_Filter_P;
         break;
 
-      case W3_CurrentFilterI:pSCA->Current_Filter_I = pSCA->paraCache.Current_Filter_I;
+      case W3_CurrentFilterI:
+        pSCA->Current_Filter_I = pSCA->paraCache.Current_Filter_I;
         break;
 
-      case W3_VelocityFilterP:pSCA->Velocity_Filter_P = pSCA->paraCache.Velocity_Filter_P;
+      case W3_VelocityFilterP:
+        pSCA->Velocity_Filter_P = pSCA->paraCache.Velocity_Filter_P;
         break;
 
-      case W3_VelocityFilterI:pSCA->Velocity_Filter_I = pSCA->paraCache.Velocity_Filter_I;
+      case W3_VelocityFilterI:
+        pSCA->Velocity_Filter_I = pSCA->paraCache.Velocity_Filter_I;
         break;
 
-      case W3_PositionFilterP:pSCA->Position_Filter_P = pSCA->paraCache.Position_Filter_P;
+      case W3_PositionFilterP:
+        pSCA->Position_Filter_P = pSCA->paraCache.Position_Filter_P;
         break;
 
-      case W3_PositionFilterI:pSCA->Position_Filter_I = pSCA->paraCache.Position_Filter_I;
+      case W3_PositionFilterI:
+        pSCA->Position_Filter_I = pSCA->paraCache.Position_Filter_I;
         break;
 
       case W3_PositionFilterD:break;
 
-      case W3_PPMaxVelocity:pSCA->PP_Max_Velocity = pSCA->paraCache.PP_Max_Velocity;
+      case W3_PPMaxVelocity:
+        pSCA->PP_Max_Velocity = pSCA->paraCache.PP_Max_Velocity;
         break;
 
-      case W3_PPMaxAcceleration:pSCA->PP_Max_Acceleration = pSCA->paraCache.PP_Max_Acceleration;
+      case W3_PPMaxAcceleration:
+        pSCA->PP_Max_Acceleration = pSCA->paraCache.PP_Max_Acceleration;
         break;
 
-      case W3_PPMaxDeceleration:pSCA->PP_Max_Deceleration = pSCA->paraCache.PP_Max_Deceleration;
+      case W3_PPMaxDeceleration:
+        pSCA->PP_Max_Deceleration = pSCA->paraCache.PP_Max_Deceleration;
         break;
 
-      case W3_PVMaxVelocity:pSCA->PV_Max_Velocity = pSCA->paraCache.PV_Max_Velocity;
+      case W3_PVMaxVelocity:
+        pSCA->PV_Max_Velocity = pSCA->paraCache.PV_Max_Velocity;
         break;
 
-      case W3_PVMaxAcceleration:pSCA->PV_Max_Acceleration = pSCA->paraCache.PV_Max_Acceleration;
+      case W3_PVMaxAcceleration:
+        pSCA->PV_Max_Acceleration = pSCA->paraCache.PV_Max_Acceleration;
         break;
 
-      case W3_PVMaxDeceleration:pSCA->PV_Max_Deceleration = pSCA->paraCache.PV_Max_Deceleration;
+      case W3_PVMaxDeceleration:
+        pSCA->PV_Max_Deceleration = pSCA->paraCache.PV_Max_Deceleration;
         break;
 
       case W3_CurrentFilterLimitL:break;
 
       case W3_CurrentFilterLimitH:break;
 
-      case W3_VelocityFilterLimitL:pSCA->Velocity_Filter_Limit_L = pSCA->paraCache.Velocity_Filter_Limit_L;
+      case W3_VelocityFilterLimitL:
+        pSCA->Velocity_Filter_Limit_L = pSCA->paraCache.Velocity_Filter_Limit_L;
         break;
 
-      case W3_VelocityFilterLimitH:pSCA->Velocity_Filter_Limit_H = pSCA->paraCache.Velocity_Filter_Limit_H;
+      case W3_VelocityFilterLimitH:
+        pSCA->Velocity_Filter_Limit_H = pSCA->paraCache.Velocity_Filter_Limit_H;
         break;
 
-      case W3_PositionFilterLimitL:pSCA->Position_Filter_Limit_L = pSCA->paraCache.Position_Filter_Limit_L;
+      case W3_PositionFilterLimitL:
+        pSCA->Position_Filter_Limit_L = pSCA->paraCache.Position_Filter_Limit_L;
         break;
 
-      case W3_PositionFilterLimitH:pSCA->Position_Filter_Limit_H = pSCA->paraCache.Position_Filter_Limit_H;
+      case W3_PositionFilterLimitH:
+        pSCA->Position_Filter_Limit_H = pSCA->paraCache.Position_Filter_Limit_H;
         break;
 
       case W3_CurrentLimit:pSCA->Current_Limit = pSCA->paraCache.Current_Limit;
         break;
 
-      case W3_VelocityLimit:pSCA->Velocity_Limit = pSCA->paraCache.Velocity_Limit;
+      case W3_VelocityLimit:
+        pSCA->Velocity_Limit = pSCA->paraCache.Velocity_Limit;
         break;
 
-      case W3_PositionLimitH:pSCA->Position_Limit_H = pSCA->paraCache.Position_Limit_H;
+      case W3_PositionLimitH:
+        pSCA->Position_Limit_H = pSCA->paraCache.Position_Limit_H;
         break;
 
-      case W3_PositionLimitL:pSCA->Position_Limit_L = pSCA->paraCache.Position_Limit_L;
+      case W3_PositionLimitL:
+        pSCA->Position_Limit_L = pSCA->paraCache.Position_Limit_L;
         break;
 
       case W3_HomingValue:pSCA->Homing_Value = pSCA->paraCache.Homing_Value;
         break;
 
-      case W3_PositionOffset:pSCA->Position_Offset = pSCA->paraCache.Position_Offset;
+      case W3_PositionOffset:
+        pSCA->Position_Offset = pSCA->paraCache.Position_Offset;
         break;
 
-      case W3_HomingCurrentLimitL:pSCA->Homing_Current_Limit_L = pSCA->paraCache.Homing_Current_Limit_L;
+      case W3_HomingCurrentLimitL:
+        pSCA->Homing_Current_Limit_L = pSCA->paraCache.Homing_Current_Limit_L;
         break;
 
-      case W3_HomingCurrentLimitH:pSCA->Homing_Current_Limit_H = pSCA->paraCache.Homing_Current_Limit_H;
+      case W3_HomingCurrentLimitH:
+        pSCA->Homing_Current_Limit_H = pSCA->paraCache.Homing_Current_Limit_H;
         break;
 
       case W3_BlockEngy:pSCA->Blocked_Energy = pSCA->paraCache.Blocked_Energy;

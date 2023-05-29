@@ -1,8 +1,12 @@
 #include "ctrl_step.hpp"
 #include "communication.hpp"
 
-CtrlStepMotor::CtrlStepMotor(CAN_HandleTypeDef *_hcan, uint8_t _id, bool _inverse,
-                             uint8_t _reduction, float _angleLimitMin, float _angleLimitMax) :
+CtrlStepMotor::CtrlStepMotor(CAN_HandleTypeDef *_hcan,
+                             uint8_t _id,
+                             bool _inverse,
+                             uint8_t _reduction,
+                             float _angleLimitMin,
+                             float _angleLimitMax) :
     nodeID(_id), hcan(_hcan), inverseDirection(_inverse), reduction(_reduction),
     angleLimitMin(_angleLimitMin), angleLimitMax(_angleLimitMax) {
   txHeader =

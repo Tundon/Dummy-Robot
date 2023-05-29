@@ -96,7 +96,8 @@ void SCA::Homing() {
   do {
     GetPosition();
     HAL_Delay(100);
-  } while ((scaHandler->Position_Real > 0.1f) || (scaHandler->Position_Real < -0.1f));
+  } while ((scaHandler->Position_Real > 0.1f)
+      || (scaHandler->Position_Real < -0.1f));
 }
 
 void SCA::LookupActuators() {

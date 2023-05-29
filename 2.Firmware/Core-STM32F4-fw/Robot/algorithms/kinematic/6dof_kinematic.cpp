@@ -8,8 +8,12 @@ inline float sinf(float x) {
   return arm_sin_f32(x);
 }
 
-static void MatMultiply(const float *_matrix1, const float *_matrix2, float *_matrixOut,
-                        const int _m, const int _l, const int _n) {
+static void MatMultiply(const float *_matrix1,
+                        const float *_matrix2,
+                        float *_matrixOut,
+                        const int _m,
+                        const int _l,
+                        const int _n) {
   float tmp;
   int i, j, k;
   for (i = 0; i < _m; i++) {
@@ -37,7 +41,9 @@ static void RotMatToEulerAngle(const float *_rotationM, float *_eulerAngles) {
       C = -atan2f(_rotationM[1], _rotationM[4]);
     }
   } else {
-    B = atan2f(-_rotationM[6], sqrtf(_rotationM[0] * _rotationM[0] + _rotationM[3] * _rotationM[3]));
+    B = atan2f(-_rotationM[6],
+               sqrtf(_rotationM[0] * _rotationM[0]
+                         + _rotationM[3] * _rotationM[3]));
     cb = cosf(B);
     A = atan2f(_rotationM[3] / cb, _rotationM[0] / cb);
     C = atan2f(_rotationM[7] / cb, _rotationM[8] / cb);
@@ -69,7 +75,12 @@ static void EulerAngleToRotMat(const float *_eulerAngles, float *_rotationM) {
   _rotationM[8] = cb * cc;
 }
 
-DOF6Kinematic::DOF6Kinematic(float L_BS, float D_BS, float L_AM, float L_FA, float D_EW, float L_WT)
+DOF6Kinematic::DOF6Kinematic(float L_BS,
+                             float D_BS,
+                             float L_AM,
+                             float L_FA,
+                             float D_EW,
+                             float L_WT)
     : armConfig(ArmConfig_t{L_BS, D_BS, L_AM, L_FA, D_EW, L_WT}) {
   float tmp_DH_matrix[6][4] = {
       {0.0f, armConfig.L_BASE, armConfig.D_BASE, -(float) M_PI_2},
@@ -92,13 +103,15 @@ DOF6Kinematic::DOF6Kinematic(float L_BS, float D_BS, float L_AM, float L_FA, flo
 
   l_se_2 = armConfig.L_ARM * armConfig.L_ARM;
   l_se = armConfig.L_ARM;
-  l_ew_2 = armConfig.L_FOREARM * armConfig.L_FOREARM + armConfig.D_ELBOW * armConfig.D_ELBOW;
+  l_ew_2 = armConfig.L_FOREARM * armConfig.L_FOREARM
+      + armConfig.D_ELBOW * armConfig.D_ELBOW;
   l_ew = 0;
   atan_e = 0;
 }
 
 bool
-DOF6Kinematic::SolveFK(const DOF6Kinematic::Joint6D_t &_inputJoint6D, DOF6Kinematic::Pose6D_t &_outputPose6D) {
+DOF6Kinematic::SolveFK(const DOF6Kinematic::Joint6D_t &_inputJoint6D,
+                       DOF6Kinematic::Pose6D_t &_outputPose6D) {
   float q_in[6];
   float q[6];
   float cosq, sinq;
@@ -163,7 +176,8 @@ DOF6Kinematic::SolveFK(const DOF6Kinematic::Joint6D_t &_inputJoint6D, DOF6Kinema
   return true;
 }
 
-bool DOF6Kinematic::SolveIK(const DOF6Kinematic::Pose6D_t &_inputPose6D, const Joint6D_t &_lastJoint6D,
+bool DOF6Kinematic::SolveIK(const DOF6Kinematic::Pose6D_t &_inputPose6D,
+                            const Joint6D_t &_lastJoint6D,
                             DOF6Kinematic::IKSolves_t &_outputSolves) {
   float qs[2];
   float qa[2][2];
@@ -361,20 +375,24 @@ bool DOF6Kinematic::SolveIK(const DOF6Kinematic::Pose6D_t &_inputPose6D, const J
           qw[0][0] = _lastJoint6D.a[3];
           cosqw = cosf(_lastJoint6D.a[3] + DH_matrix[3][0]);
           sinqw = sinf(_lastJoint6D.a[3] + DH_matrix[3][0]);
-          qw[0][2] = atan2f(cosqw * R36[3] - sinqw * R36[0], cosqw * R36[0] + sinqw * R36[3]);
+          qw[0][2] = atan2f(cosqw * R36[3] - sinqw * R36[0],
+                            cosqw * R36[0] + sinqw * R36[3]);
           qw[1][2] = _lastJoint6D.a[5];
           cosqw = cosf(_lastJoint6D.a[5] + DH_matrix[5][0]);
           sinqw = sinf(_lastJoint6D.a[5] + DH_matrix[5][0]);
-          qw[1][0] = atan2f(cosqw * R36[3] - sinqw * R36[0], cosqw * R36[0] + sinqw * R36[3]);
+          qw[1][0] = atan2f(cosqw * R36[3] - sinqw * R36[0],
+                            cosqw * R36[0] + sinqw * R36[3]);
         } else {
           qw[0][2] = _lastJoint6D.a[5];
           cosqw = cosf(_lastJoint6D.a[5] + DH_matrix[5][0]);
           sinqw = sinf(_lastJoint6D.a[5] + DH_matrix[5][0]);
-          qw[0][0] = atan2f(cosqw * R36[3] - sinqw * R36[0], cosqw * R36[0] + sinqw * R36[3]);
+          qw[0][0] = atan2f(cosqw * R36[3] - sinqw * R36[0],
+                            cosqw * R36[0] + sinqw * R36[3]);
           qw[1][0] = _lastJoint6D.a[3];
           cosqw = cosf(_lastJoint6D.a[3] + DH_matrix[3][0]);
           sinqw = sinf(_lastJoint6D.a[3] + DH_matrix[3][0]);
-          qw[1][2] = atan2f(cosqw * R36[3] - sinqw * R36[0], cosqw * R36[0] + sinqw * R36[3]);
+          qw[1][2] = atan2f(cosqw * R36[3] - sinqw * R36[0],
+                            cosqw * R36[0] + sinqw * R36[3]);
         }
         _outputSolves.solFlag[4 * ind_arm + 2 * ind_elbow + 0][2] = -1;
         _outputSolves.solFlag[4 * ind_arm + 2 * ind_elbow + 1][2] = -1;
@@ -401,29 +419,36 @@ bool DOF6Kinematic::SolveIK(const DOF6Kinematic::Pose6D_t &_inputPose6D, const J
           _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[0] =
               qs[ind_arm] + (float) M_PI;
         else
-          _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[0] = qs[ind_arm];
+          _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[0] =
+              qs[ind_arm];
 
         for (i = 0; i < 2; i++) {
           if (qa[ind_elbow][i] > (float) M_PI)
-            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[1 + i] =
+            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[1
+                + i] =
                 qa[ind_elbow][i] - (float) M_PI;
           else if (qa[ind_elbow][i] < -(float) M_PI)
-            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[1 + i] =
+            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[1
+                + i] =
                 qa[ind_elbow][i] + (float) M_PI;
           else
-            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[1 + i] =
+            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[1
+                + i] =
                 qa[ind_elbow][i];
         }
 
         for (i = 0; i < 3; i++) {
           if (qw[ind_wrist][i] > (float) M_PI)
-            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[3 + i] =
+            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[3
+                + i] =
                 qw[ind_wrist][i] - (float) M_PI;
           else if (qw[ind_wrist][i] < -(float) M_PI)
-            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[3 + i] =
+            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[3
+                + i] =
                 qw[ind_wrist][i] + (float) M_PI;
           else
-            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[3 + i] =
+            _outputSolves.config[4 * ind_arm + 2 * ind_elbow + ind_wrist].a[3
+                + i] =
                 qw[ind_wrist][i];
         }
       }
@@ -438,7 +463,8 @@ bool DOF6Kinematic::SolveIK(const DOF6Kinematic::Pose6D_t &_inputPose6D, const J
 }
 
 DOF6Kinematic::Joint6D_t
-operator-(const DOF6Kinematic::Joint6D_t &_joints1, const DOF6Kinematic::Joint6D_t &_joints2) {
+operator-(const DOF6Kinematic::Joint6D_t &_joints1,
+          const DOF6Kinematic::Joint6D_t &_joints2) {
   DOF6Kinematic::Joint6D_t tmp{};
   for (int i = 0; i < 6; i++)
     tmp.a[i] = _joints1.a[i] - _joints2.a[i];
