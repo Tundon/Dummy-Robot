@@ -10,7 +10,6 @@
 #ifndef __SCA_API_H
 #define __SCA_API_H
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,11 +28,10 @@ extern "C" {
 #define SendInterval    200            //非阻塞时的指令发送间隔
 #define SCA_Delay(x)    delayMicroseconds(x)    //延时接口，非阻塞时连续发送需延时
 
-
 #if SCA_DEBUGER
 #define SCA_Debug printf
 #else
-#define SCA_Debug(s,...)
+#define SCA_Debug(s, ...)
 #endif
 
 /* ！！！以下宏定义信息参数请勿修改！！！ */
@@ -194,7 +192,6 @@ uint8_t setActuatorID(uint8_t currentID, uint8_t newID, uint8_t isBlock);
 uint8_t getActuatorLastState(uint8_t id, uint8_t isBlock);
 uint8_t requestCVPValue(uint8_t id, uint8_t isBlock);
 uint8_t requestCVPValueFast(SCA_Handler_t *pSCA, uint8_t isBlock);
-
 
 #ifdef __cplusplus
 }
