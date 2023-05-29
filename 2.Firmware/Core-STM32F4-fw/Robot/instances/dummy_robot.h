@@ -120,7 +120,10 @@ class DummyRobot {
   void MoveJointsTo(float j1, float j2, float j3, float j4, float j5, float j6);
 
   /**
-   * Move to a specific location, in base coordinates. (x, y, z) is the location, and (a, b, c) is the rotation angles.
+   * Move to a specific location, in base coordinates. (x, y, z) is the
+   * location, and (a, b, c) is the rotation angles.
+   *
+   * Returns `true` if the arm can move to given location, `false` otherwise.
    */
   bool MoveTo(float x, float y, float z, float a, float b, float c);
   void SetJointSpeed(float _speed);
@@ -196,7 +199,8 @@ class DummyRobot {
                                &DummyRobot::SetCommandMode,
                                "mode"),
         make_protocol_object("tuning", tuningHelper.MakeProtocolDefinitions()),
-        make_protocol_function("is_moving", *this, &DummyRobot::IsMoving)
+        make_protocol_function("is_moving", *this, &DummyRobot::IsMoving),
+        make_protocol_function("move_to", *this, &DummyRobot::MoveTo, "x", "y", "z", "a", "b", "c")
     );
   }
 

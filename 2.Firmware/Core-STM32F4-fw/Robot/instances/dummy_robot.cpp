@@ -509,3 +509,11 @@ void DummyRobot::TuningHelper::SetFreqAndAmp(float _freq, float _amp) {
   frequency = _freq;
   amplitude = _amp;
 }
+
+bool DummyRobot::MoveTo(float x, float y, float z, float a, float b, float c) {
+  if (!this->MoveL(x, y, z, a, b, c)) {
+    return false;
+  }
+  this->MoveJoints(this->targetJoints);
+  return true;
+}
