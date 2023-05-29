@@ -126,6 +126,7 @@ public:
     bool MoveJ(float _j1, float _j2, float _j3, float _j4, float _j5, float _j6);
     bool MoveL(float _x, float _y, float _z, float _a, float _b, float _c);
     void MoveJoints(DOF6Kinematic::Joint6D_t _joints);
+    void MoveJointsTo(float j1, float j2, float j3, float j4, float j5, float j6);
     void SetJointSpeed(float _speed);
     void SetJointAcceleration(float _acc);
     void UpdateJointAngles();
@@ -164,12 +165,13 @@ public:
             make_protocol_object("hand", hand->MakeProtocolDefinitions()),
             make_protocol_function("reboot", *this, &DummyRobot::Reboot),
             make_protocol_function("set_enable", *this, &DummyRobot::SetEnable, "enable"),
-            make_protocol_function("move_j", *this, &DummyRobot::MoveJ, "j1", "j2", "j3", "j4", "j5", "j6"),
+            make_protocol_function("move_joints_to", *this, &DummyRobot::MoveJointsTo, "j1", "j2", "j3", "j4", "j5", "j6"),
             make_protocol_function("move_l", *this, &DummyRobot::MoveL, "x", "y", "z", "a", "b", "c"),
             make_protocol_function("set_joint_speed", *this, &DummyRobot::SetJointSpeed, "speed"),
             make_protocol_function("set_joint_acc", *this, &DummyRobot::SetJointAcceleration, "acc"),
             make_protocol_function("set_command_mode", *this, &DummyRobot::SetCommandMode, "mode"),
-            make_protocol_object("tuning", tuningHelper.MakeProtocolDefinitions())
+            make_protocol_object("tuning", tuningHelper.MakeProtocolDefinitions()),
+            make_protocol_function("is_moving", *this, &DummyRobot::IsMoving)
         );
     }
 

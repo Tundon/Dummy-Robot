@@ -67,6 +67,11 @@ void DummyRobot::MoveJoints(DOF6Kinematic::Joint6D_t _joints)
     }
 }
 
+void DummyRobot::MoveJointsTo(float j1, float j2, float j3, float j4, float j5, float j6) {
+    if (this->MoveJ(j1, j2, j3, j4, j5, j6)) {
+        this->MoveJoints(this->targetJoints);
+    }
+}
 
 bool DummyRobot::MoveJ(float _j1, float _j2, float _j3, float _j4, float _j5, float _j6)
 {
