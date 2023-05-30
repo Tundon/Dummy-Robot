@@ -111,3 +111,39 @@ add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${PROJECT_NAME}.elf> ${BIN_FILE}
         COMMENT "Building ${HEX_FILE}
 Building ${BIN_FILE}")
+
+## Add the following lines to CMakeLists.txt
+#enable_testing()
+#include(FetchContent)
+#FetchContent_Declare(
+#        googletest
+#        # Specify the commit you depend on and update it regularly.
+#        URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
+#)
+#FetchContent_MakeAvailable(googletest)
+#
+## Link the test executable with Google Test
+#add_executable(unit-tests Tests/test_example.cpp)
+#target_link_libraries(unit-tests ${GTEST_LIBRARIES} pthread)
+#add_test(NAME unit_tests COMMAND unit-tests)
+#include(googletest)
+#gtest_discover_tests(unit-tests)
+#
+#include(FetchContent)
+#
+## Fetch and make Google Test available
+#FetchContent_Declare(
+#        googletest
+#        URL https://github.com/google/googletest/archive/refs/tags/v1.13.0.zip
+#)
+#FetchContent_MakeAvailable(googletest)
+#
+## Set up the tests
+#add_executable(MyTests test_example.cpp main.cpp)
+#target_link_libraries(MyTests gtest_main pthread)
+#
+## Register the tests with CTest
+#include(GoogleTest)
+#gtest_discover_tests(MyTests)
+
+add_subdirectory(Tests)
