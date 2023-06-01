@@ -3,6 +3,13 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
 cmake_minimum_required(VERSION 3.19)
 
+# project settings
+project(Core-STM32F4-fw C CXX ASM)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD 11)
+
+add_subdirectory(Tests)
+
 # specify cross compilers and tools
 set(CMAKE_C_COMPILER arm-none-eabi-gcc)
 set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
@@ -12,11 +19,6 @@ set(CMAKE_OBJCOPY arm-none-eabi-objcopy)
 set(CMAKE_OBJDUMP arm-none-eabi-objdump)
 set(SIZE arm-none-eabi-size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-
-# project settings
-project(Core-STM32F4-fw C CXX ASM)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_STANDARD 11)
 
 # for use printf & scanf with float
 set(COMMON_FLAGS "-specs=nosys.specs -specs=nano.specs -u _printf_float -u _scanf_float")
@@ -111,39 +113,3 @@ add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
         COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${PROJECT_NAME}.elf> ${BIN_FILE}
         COMMENT "Building ${HEX_FILE}
 Building ${BIN_FILE}")
-
-## Add the following lines to CMakeLists.txt
-#enable_testing()
-#include(FetchContent)
-#FetchContent_Declare(
-#        googletest
-#        # Specify the commit you depend on and update it regularly.
-#        URL https://github.com/google/googletest/archive/5376968f6948923e2411081fd9372e71a59d8e77.zip
-#)
-#FetchContent_MakeAvailable(googletest)
-#
-## Link the test executable with Google Test
-#add_executable(unit-tests Tests/test_example.cpp)
-#target_link_libraries(unit-tests ${GTEST_LIBRARIES} pthread)
-#add_test(NAME unit_tests COMMAND unit-tests)
-#include(googletest)
-#gtest_discover_tests(unit-tests)
-#
-#include(FetchContent)
-#
-## Fetch and make Google Test available
-#FetchContent_Declare(
-#        googletest
-#        URL https://github.com/google/googletest/archive/refs/tags/v1.13.0.zip
-#)
-#FetchContent_MakeAvailable(googletest)
-#
-## Set up the tests
-#add_executable(MyTests test_example.cpp main.cpp)
-#target_link_libraries(MyTests gtest_main pthread)
-#
-## Register the tests with CTest
-#include(GoogleTest)
-#gtest_discover_tests(MyTests)
-
-add_subdirectory(Tests)
